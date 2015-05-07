@@ -130,16 +130,16 @@ class App(Frame):
         self.create_widget()
 
     def create_widget(self):
-        self.lbl = Label(self, text = "enter pass: ")
+        self.lbl = Label(self, text = "Вводи сообщение: ")
         self.lbl.grid(row = 0,column = 0, columns = 2, sticky = W)
 
-        self.pw_ent = Entry(self)
+        self.pw_ent = Entry(self,width = 50)
         self.pw_ent.grid(row = 0, column = 1, sticky = W)
 
-        self.buttn = Button(self, text = "ok", command = self.reveal)
+        self.buttn = Button(self, text = "шифровать", command = self.reveal)
         self.buttn.grid(row = 2, column = 0, sticky = W)
 
-        self.buttn2 = Button(self, text = "clear", command = self.clear)
+        self.buttn2 = Button(self, text = "очистить", command = self.clear)
         self.buttn2.grid(row = 2, column = 1, sticky = W)
 
         self.secret_txt = Text(self, width = 100, height = 100, wrap = WORD)
@@ -149,8 +149,9 @@ class App(Frame):
         self.secret_txt.delete(0.0,END)
 
     def reveal(self):
-
-        translated = decryptMessage(keyA = 7,keyB = 5, message=message) #аффины
+        word_need = self.pw_ent.get()
+        word_need = word_need.lower()
+        translated = decryptMessage(keyA = 7,keyB = 5, message=word_need) #аффины
         beaufort = squareBeaufort(translated)
         result_pol = viginer(beaufort, "key")
 
@@ -166,7 +167,7 @@ class App(Frame):
 
 
 root = Tk()
-root.title("lol")
+root.title("3 лаба")
 root.geometry("800x800")
 
 App = App(root)
